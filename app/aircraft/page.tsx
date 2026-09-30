@@ -1,52 +1,66 @@
-import Link from 'next/link';
-import { Building2, CloudSun, MapPin, PlaneTakeoff, PlaneLanding } from 'lucide-react';
+import { Bell, Bookmark, Compass, Search, Settings } from 'lucide-react';
 
 import { Header } from '@/components/Header';
-import { airports } from '@/lib/mock-data';
+import { dashboardCards } from '@/lib/mock-data';
 
-export default function AirportsPage() {
+export default function DashboardPage() {
   return (
     <>
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <p className="text-xs uppercase tracking-[0.22em] text-sky-300">Airport intelligence</p>
-          <h1 className="mt-3 text-3xl font-semibold text-white">Global airport overview</h1>
+          <p className="text-xs uppercase tracking-[0.22em] text-sky-300">Dashboard</p>
+          <h1 className="mt-3 text-3xl font-semibold text-white">Operations overview</h1>
         </div>
 
         <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-4">
-          {airports.map((airport) => (
-            <div key={airport.code} className="section-shell p-5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{airport.code}</p>
-                  <h2 className="mt-2 text-xl font-semibold text-white">{airport.name}</h2>
-                </div>
-                <div className="rounded-full border border-sky-500/40 bg-sky-500/10 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-sky-200">
-                  Active
-                </div>
-              </div>
-
-              <div className="mt-4 space-y-3 text-sm text-slate-300">
-                <div className="flex items-center gap-2"><Building2 className="h-4 w-4 text-sky-300" /> {airport.city}, {airport.country}</div>
-                <div className="flex items-center gap-2"><CloudSun className="h-4 w-4 text-sky-300" /> Local time: {airport.localTime}</div>
-                <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-sky-300" /> Runways: {airport.runway}</div>
-              </div>
-
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">
-                  <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-slate-400"><PlaneTakeoff className="h-3.5 w-3.5" /> Departures</div>
-                  <p className="mt-2 text-lg font-semibold text-white">74</p>
-                </div>
-                <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">
-                  <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-slate-400"><PlaneLanding className="h-3.5 w-3.5" /> Arrivals</div>
-                  <p className="mt-2 text-lg font-semibold text-white">69</p>
-                </div>
-              </div>
+          <div className="section-shell p-5">
+            <div className="flex items-center gap-2 text-sky-300"><Bookmark className="h-4 w-4" /> Favorite flights</div>
+            <div className="mt-4 space-y-2 text-sm text-slate-300">
+              {dashboardCards.favoriteFlights.map((flight) => (
+                <div key={flight} className="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">{flight}</div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          <div className="section-shell p-5">
+            <div className="flex items-center gap-2 text-sky-300"><Compass className="h-4 w-4" /> Recently tracked</div>
+            <div className="mt-4 space-y-2 text-sm text-slate-300">
+              {dashboardCards.recentTracks.map((flight) => (
+                <div key={flight} className="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">{flight}</div>
+              ))}
+            </div>
+          </div>
+
+          <div className="section-shell p-5">
+            <div className="flex items-center gap-2 text-sky-300"><Search className="h-4 w-4" /> Saved searches</div>
+            <div className="mt-4 space-y-2 text-sm text-slate-300">
+              <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">Transatlantic westbound</div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">Airport delays</div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">North America</div>
+            </div>
+          </div>
+
+          <div className="section-shell p-5">
+            <div className="flex items-center gap-2 text-sky-300"><Bell className="h-4 w-4" /> Flight alerts</div>
+            <div className="mt-4 space-y-2 text-sm text-slate-300">
+              {dashboardCards.alerts.map((alert) => (
+                <div key={alert} className="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">{alert}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 section-shell p-5">
+          <div className="flex items-center gap-2 text-sky-300"><Settings className="h-4 w-4" /> Account settings</div>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-sm text-slate-300">Notification preferences</div>
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-sm text-slate-300">Favorite airports</div>
+            <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-sm text-slate-300">Security & account</div>
+          </div>
         </div>
       </main>
     </>
   );
 }
+

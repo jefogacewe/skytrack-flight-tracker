@@ -1,116 +1,52 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+import { Building2, CloudSun, MapPin, PlaneLanding, PlaneTakeoff } from 'lucide-react';
 
-:root {
-  color-scheme: dark;
+import { Header } from '@/components/Header';
+import { airports } from '@/lib/mock-data';
+
+export default function AirportsPage() {
+  return (
+    <>
+      <Header />
+      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <p className="text-xs uppercase tracking-[0.22em] text-sky-300">Airport intelligence</p>
+          <h1 className="mt-3 text-3xl font-semibold text-white">Global airport overview</h1>
+        </div>
+
+        <div className="grid gap-5 lg:grid-cols-2 xl:grid-cols-4">
+          {airports.map((airport) => (
+            <div key={airport.code} className="section-shell p-5">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{airport.code}</p>
+                  <h2 className="mt-2 text-xl font-semibold text-white">{airport.name}</h2>
+                </div>
+                <div className="rounded-full border border-sky-500/40 bg-sky-500/10 px-2 py-1 text-[10px] uppercase tracking-[0.18em] text-sky-200">
+                  Active
+                </div>
+              </div>
+
+              <div className="mt-4 space-y-3 text-sm text-slate-300">
+                <div className="flex items-center gap-2"><Building2 className="h-4 w-4 text-sky-300" /> {airport.city}, {airport.country}</div>
+                <div className="flex items-center gap-2"><CloudSun className="h-4 w-4 text-sky-300" /> Local time: {airport.localTime}</div>
+                <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-sky-300" /> Runways: {airport.runway}</div>
+              </div>
+
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">
+                  <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-slate-400"><PlaneTakeoff className="h-3.5 w-3.5" /> Departures</div>
+                  <p className="mt-2 text-lg font-semibold text-white">74</p>
+                </div>
+                <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-3">
+                  <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-slate-400"><PlaneLanding className="h-3.5 w-3.5" /> Arrivals</div>
+                  <p className="mt-2 text-lg font-semibold text-white">69</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
+    </>
+  );
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: #040b16;
-  color: #e2e8f0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-::selection {
-  background: rgba(33, 196, 255, 0.35);
-}
-
-.leaflet-container {
-  width: 100%;
-  height: 100%;
-  background: #071425;
-}
-
-.leaflet-control-zoom a {
-  background: rgba(15, 23, 42, 0.9) !important;
-  color: white !important;
-  border-color: rgba(94, 234, 212, 0.2) !important;
-}
-
-.flight-marker {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 9999px;
-  color: #03131f;
-  font-size: 12px;
-  font-weight: 700;
-  border: 2px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4);
-}
-
-.marker-airborne {
-  background: #67e8f9;
-}
-
-.marker-delayed {
-  background: #fbbf24;
-}
-
-.marker-landed {
-  background: #34d399;
-}
-
-.marker-diverted {
-  background: #f97316;
-}
-
-.glass-panel {
-  background: rgba(15, 23, 42, 0.72);
-  backdrop-filter: blur(14px);
-}
-
-.section-shell {
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  background: rgba(15, 23, 42, 0.78);
-  border-radius: 1.5rem;
-  box-shadow: 0 12px 35px rgba(2, 6, 23, 0.35);
-}
-
-.primary-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border-radius: 9999px;
-  background: linear-gradient(135deg, #67e8f9, #38bdf8);
-  color: #041421;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.primary-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 0 30px rgba(103, 232, 249, 0.3);
-}
-
-.secondary-button {
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  background: rgba(15, 23, 42, 0.8);
-  color: #e2e8f0;
-  border-radius: 9999px;
-}
-
-.text-balance {
-  text-wrap: balance;
-}
-
-input {
-  color: inherit;
-}
-
-@media (max-width: 640px) {
-  .mobile-stack {
-    display: block;
-  }
-}

@@ -1,24 +1,36 @@
-# SkyTrack
+'use client';
 
-SkyTrack is a modern, original aviation tracking experience built with Next.js, TypeScript, Tailwind CSS, React Leaflet, and Recharts.
+import { useEffect, useState } from 'react';
 
-## Features
+export function AnimatedCounter({
+  value,
+  className = '',
+  duration = 1400,
+}: {
+  value: number;
+  className?: string;
+  duration?: number;
+}) {
+  const [displayValue, setDisplayValue] = useState(0);
 
-- Real-time style flight tracking dashboard
-- Search by flight number, airline, airport, route, or registration
-- Interactive airport, aircraft, and flight detail views
-- Responsive aviation UI with premium dark theme
-- Service/data layer ready for real API integration
+  useEffect(() => {
+    let start: number | null = null;
 
-## Getting started
+    const tick = (timestamp: number) => {
+      if (start === null) start = timestamp;
+      const elapsed = timestamp - start;
+      const progress = Math.min(elapsed / duration, 1);
+      setDisplayValue(Math.floor(progress * value));
 
-```bash
-npm install
-npm run dev
-```
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      }
+    };
 
-Open http://localhost:3000
+    const frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, [duration, value]);
 
-## Notes
+  return <span className={className}>{displayValue.toLocaleString()}</span>;
+}
 
-This project uses realistic mock flight data for a polished demo experience while keeping the data layer structured for future API integration.
